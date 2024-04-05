@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <style>
+      .home {
+        text-align: center;
+      }
+      .nav {
+        text-decoration:none; 
+        list-style-type:none; 
+        display:flex;
+        background-color: #eee;
+      }
+
+      #login { 
+        margin-left: auto;
+        padding-right: 6px;
+      }
+      .nav > li {
+        margin: 6px;
+      }
+    .nav > li > a {
+      text-decoration: none;
+      color: black;
+    }
+    .nav > li > a:hover {
+      text-decoration: none;
+      color: gray;
+    }
+
+    body {
+      background-color: #84BCDA;
+    }
+    </style>
+
+</head>
+
+<body>
+
+
+<ul  class="nav">
+    <li><a href="/public" id="public">Public Area</a></li>
+    <li><a href="/secret" id="secretarea">Secret Area</a></li>
+    <li id="login"><a href="/login"><button>Login</button></a></li>
+ 
+</ul>
+
+<div id="accesstoken" class="home">
+   <div style="padding:20px; background-color:white; border-radius: 5px;">
+     <p>
+   Please login to continue!
+    </p>
+   </div>
+</div>
+ 
+</body>
+
+<script>
+
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+
+    if (urlParams.get('accessToken')) {
+
+        let token = urlParams.get('accessToken')
+        document.getElementById('accesstoken').innerHTML=`<span>Here is your access token:<br> ${token}`
+        history.pushState(null, null, '/')
+        document.getElementById('secretarea').href = `/secret?access_token=${token}`
+
+    }
+
+</script>
+
+</html>
